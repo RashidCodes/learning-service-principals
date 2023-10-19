@@ -33,11 +33,11 @@ az login --service-principal -u ${USERNAME} -p ${PASSWORD} --tenant ${TENANT} &>
 check_run_status "Successfully logged in" "Failed to login into tenant: ${TENANT}";
 
 # Add firewall rule
-az sql server firewall-rule create -g RG-TEST -s ${SERVER_NAME} -n allowLocalMachineRule --start-ip-address ${START_IP_ADDRESS} --end-ip-address ${END_IP_ADDRESS} &> /dev/null
+az sql server firewall-rule create -g ${RESOURCE_GROUP} -s ${SERVER_NAME} -n allowLocalMachineRule --start-ip-address ${START_IP_ADDRESS} --end-ip-address ${END_IP_ADDRESS} &> /dev/null
 check_run_status "Successfully created firewall rule: ${FIREWALL_RULE_NAME}" "Failed to create firewall rule: ${FIREWALL_RULE_NAME}";
 
 # Perform SQL Tasks
 
 # Remove firewall rule
-az sql server firewall-rule delete -g RG-TEST -s ${SERVER_NAME} -n allowLocalMachineRule;
+az sql server firewall-rule delete -g ${RESOURCE_GROUP} -s ${SERVER_NAME} -n allowLocalMachineRule;
 check_run_status "Successfully deleted firewall rule: ${FIREWALL_RULE_NAME}" "Failed to delete firewall rule: ${FIREWALL_RULE_NAME}"
